@@ -58,7 +58,7 @@ const Registration = () => {
           <label class="form-check-label" for="2">Vice President 1</label>
         </div> 
         <div class = "form-group position">
-          <input class="form-check-input" type="radio" name="vp1" id="position" value="option3" checked/>
+          <input class="form-check-input" type="radio" name="member" id="position" value="option3" checked/>
           <label class="form-check-label" for="3">Members</label>
         </div>
 
