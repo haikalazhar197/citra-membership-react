@@ -42,3 +42,35 @@
 .page {
   margin-bottom: 10rem;
 }
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+}
+
+.bg {
+  color: #fff;
+}
+
+.light {
+  color: #000;
+}
+
+.hero-section {
+  padding: 20vh 20vw 5vh 10vw;
+}
+
+.hero-section h1 {
+  font-size: 5rem;
+}
+
+.hero-section h2 {
+  font-size: 4rem;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
