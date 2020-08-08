@@ -28,7 +28,6 @@ const NavBar = ({ headerType = "landing" }) => {
     return (
       <div>
         <Navbar bg="dark" expand="lg" variant="dark">
-          <Navbar.Brand>CiTRA IIUM Membership</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Button className="mr-sm-2 ml-auto">Logout</Button>
