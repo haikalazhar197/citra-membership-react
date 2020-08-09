@@ -1,37 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
+
+import axios from "axios";
 
 import NavBar from "../components/NavBar";
 
 const Registration = () => {
+  const [loading, setLoading] = useState(true);
+  const [clubs, setClubs] = useState([]);
   const [detail, setDetail] = useState({
-    name: "",
-    matricNo: "",
+    fullname: "",
+    matricno: "",
     age: "",
     kulliyah: "",
     course: "",
-    club: "",
+    clubid: "",
     email: "",
   });
+
+  useEffect(() => {
+    getclubs();
+    return () => {
+      console.trace("im out");
+    };
+  }, []);
+
+  const getclubs = async () => {
+    setLoading(true);
+
+    try {
+      const result = await axios.get("http://localhost:3001/clubs");
+      console.log(result.data.data);
+      const data = result.data.data;
+      setClubs(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   // function submit() {
   //   console.log(detail)
   // }
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     console.log(detail);
+
+    try {
+      axios.post("http://localhost:3001/register", {
+        data: {
+          ...detail,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     setDetail({
-      name: "",
-      matricNo: "",
+      fullname: "",
+      matricno: "",
       age: "",
       kulliyah: "",
       course: "",
-      club: "",
+      clubid: "",
       email: "",
     });
   };
+
+  // const changeCLub = (value) => {
+  //   setDetail({ ...detail, club: value });
+  // };
+
+  if (loading) {
+    return (
+      <div>
+        <div>...loading</div>
+      </div>
+    );
+  }
 
   return (
     <div className="page">
@@ -47,10 +96,10 @@ const Registration = () => {
                 <Form.Label>Full Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={detail.name}
+                  value={detail.fullname}
                   placeholder="Enter full Name"
                   onChange={(e) =>
-                    setDetail({ ...detail, name: e.target.value })
+                    setDetail({ ...detail, fullname: e.target.value })
                   }
                 />
               </Form.Group>
@@ -60,9 +109,9 @@ const Registration = () => {
                 <Form.Control
                   type="number"
                   placeholder="Enter matric Number"
-                  value={detail.matricNo}
+                  value={detail.matricno}
                   onChange={(e) =>
-                    setDetail({ ...detail, matricNo: e.target.value })
+                    setDetail({ ...detail, matricno: e.target.value })
                   }
                 />
               </Form.Group>
@@ -108,17 +157,20 @@ const Registration = () => {
                 <Form.Control
                   as="select"
                   type="select"
-                  value={detail.club}
+                  value={detail.clubid}
                   onChange={(e) =>
-                    setDetail({ ...detail, club: e.target.value })
+                    setDetail({ ...detail, clubid: parseInt(e.target.value) })
                   }
                 >
-                  <option>Club: </option>
-                  <option>IIUM Acoustic Band</option>
-                  <option>IIUM Gamelan Gema Gangsa</option>
-                  <option>IIUM Andeka Caklempong</option>
-                  <option>IIUM Angklung</option>
-                  <option>IIUM Nafas Tari</option>
+                  {clubs.map((club) => (
+                    <option
+                      key={club.clubid}
+                      value={club.clubid}
+                      onSelect={() => console.log("selecting")}
+                    >
+                      {club.clubname}
+                    </option>
+                  ))}
                 </Form.Control>
               </Form.Group>
 

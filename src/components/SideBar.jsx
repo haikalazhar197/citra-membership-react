@@ -17,7 +17,7 @@ import {
 const sideBarStyle = {
   width: "20vw",
   height: "100vh",
-  position: "absolute",
+  position: "fixed",
   left: "0px",
   top: "0px",
   backgroundColor: "#49475B",
